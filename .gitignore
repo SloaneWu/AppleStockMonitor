@@ -1,0 +1,53 @@
+# Dependencies and caches
+node_modules/
+.cache/
+coverage/
+__pycache__/
+*.pyc
+
+# Local application state; lower-case extension/data is versioned catalog data.
+/Data/
+/Browser/
+settings.json
+settings.json.*
+.env
+.env.*
+!.env.example
+
+# User exports and diagnostics
+Apple库存诊断-*.json
+设置与最近状态.json
+库存历史-*.csv
+库存变化-*.csv
+
+# Build/runtime artifacts and isolated self-test data
+dist/
+build/
+work/
+outputs/
+electron-runtime/
+AppleStockMonitor-Windows-*-portable/
+desktop-smoke-*/
+self-test-data/
+*.zip
+*.exe
+*.dll
+*.partial
+
+# Release-local generated records; regenerate for each frozen release.
+交付文件清单-SHA256.json
+/测试结果-*.txt
+/测试结果-*.json
+/桌面界面-模拟数据.png
+*.sha256.txt
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp

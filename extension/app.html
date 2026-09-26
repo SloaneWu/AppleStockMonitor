@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Apple 香港库存监控桌面版</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">◉</span><span>Store Watch<small>APPLE 香港库存监控</small></span></a>
+    <p class="nav-label">工作空间</p>
+    <nav aria-label="主导航">
+      <button class="nav-item active" data-view="overview" aria-current="page"><span aria-hidden="true">▦</span>监控概览</button>
+      <button class="nav-item" data-view="history"><span aria-hidden="true">◷</span>历史与日志</button>
+      <button class="nav-item" data-view="settings"><span aria-hidden="true">≡</span>频率与通知</button>
+      <button class="nav-item" data-view="purchase"><span aria-hidden="true">◇</span>购买准备</button>
+    </nav>
+    <div class="sidebar-bottom"><span class="region-dot"></span>香港 · Central<p>本机保存 · 香港时间</p><span class="build-label">v4.0.1 Windows 桌面版</span></div>
+  </aside>
+  <div class="workspace">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">YOUR PERSONAL STOCK DESK</p>
+      <h1 id="view-title">监控概览</h1>
+      <p id="view-subtitle" class="subtitle">关注你的下一部 iPhone，掌握每家门店的最近库存。</p>
+    </div>
+    <div class="header-meta"><span class="edition"><span class="region-dot"></span>香港 Apple Store</span><span id="header-clock">Windows · 本地工作空间</span></div>
+  </header>
+
+  <section id="desktop-toolbar" class="desktop-toolbar" aria-label="桌面程序" hidden>
+    <div class="desktop-workspace"><strong id="desktop-status">Windows 桌面版</strong><span id="desktop-data-path"></span></div>
+    <div class="desktop-actions"><button id="desktop-open-apple" class="small-button">打开 Apple 官网</button><button id="desktop-open-data" class="small-button">打开数据目录</button><button id="desktop-backup" class="small-button">导出备份</button></div>
+    <p id="desktop-message" role="status" aria-live="polite" hidden></p>
+  </section>
+
+  <div id="preview-notice" class="preview-notice" hidden>界面演示 · 所有库存为模拟数据，不会查询 Apple、发送通知或加入购物袋。</div>
+  <main id="main-content" tabindex="-1">
+    <section class="overview-summary view-section" data-panel="overview" aria-label="监控摘要">
+      <div class="metric"><span>监控商品</span><strong id="summary-products">0</strong><small>不同型号、容量与颜色组合</small></div>
+      <div class="metric"><span>门店监控</span><strong id="summary-tasks">0</strong><small id="summary-stores">覆盖 0 家门店</small></div>
+      <div class="metric positive"><span>最近结果有货</span><strong id="summary-available">0</strong><small>门店与商品组合 · 以官网为准</small></div>
+      <div class="metric"><span>需要关注</span><strong id="summary-attention">0</strong><small>查询异常、受限或待验证</small></div>
+    </section>
+    <div id="attention-banner" class="attention-banner view-section" data-panel="overview" hidden role="status"><div><strong id="attention-title"></strong><p id="attention-description"></p></div><button id="show-connection" class="small-button">查看连接状态 ↓</button></div>
+    <p id="global-message" class="global-message" role="status" aria-live="polite" hidden></p>
+    <section class="card config-card view-section" data-panel="overview" aria-labelledby="config-title">
+      <div class="section-heading">
+        <div><p class="step">添加商品</p><h2 id="config-title">添加监控</h2></div>
+        <span class="location-tag">香港</span>
+      </div>
+      <div class="field-grid">
+        <label class="wide"><span>门店</span><select id="store" disabled></select></label>
+        <label class="wide"><span>型号</span><select id="model" disabled></select></label>
+        <label><span>容量</span><select id="capacity" disabled></select></label>
+        <label><span>颜色</span><select id="color" disabled></select></label>
+      </div>
+      <button id="add" class="primary full" disabled>添加到监控列表</button>
+      <div id="selected-product" class="selected-product"></div><p class="field-note">同款商品合并显示各门店结果；重复添加会自动跳过。</p>
+      <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      <div class="session-note">
+        <strong>最小化到托盘后，监控仍会继续。</strong>
+        <p>默认每 60 秒检查。保持程序运行、电脑联网且不休眠；退出程序会停止检查。关闭主窗口时，可选择留在托盘或退出。</p>
+        <p>程序内的 Apple 官网窗口使用独立会话，不共用 Chrome / Edge 的登录状态。遇到查询受阻，请先等待官网恢复，再单次验证。任务和历史会保留。</p>
+      </div>
+    </section>
+
+    <section class="card monitor-card view-section" data-panel="overview" aria-labelledby="monitor-title">
+      <div class="section-heading">
+        <div><p class="step">WATCHLIST</p><h2 id="monitor-title">监控列表 <span id="task-count" class="count-label">0 个门店监控</span></h2></div>
+        <span id="monitor-badge" class="status-badge idle">已暂停</span>
+      </div>
+      <div class="task-toolbar"><label class="search-label"><span class="sr-only">搜索型号、颜色、SKU 或门店</span><input id="task-search" class="text-input" type="search" placeholder="搜索商品或门店…" autocomplete="off"></label><label><span class="sr-only">库存状态筛选</span><select id="task-filter"><option value="all">全部状态</option><option value="available">最近有货</option><option value="attention">需要关注</option><option value="waiting">待检查 / 预订</option></select></label></div>
+      <p id="filter-summary" class="field-note filter-summary" role="status"></p>
+      <div id="no-matches" class="empty-state" hidden><p>没有符合条件的监控</p><span>试试其他关键词，或</span> <button id="clear-filters" class="text-button">清除筛选</button></div>
+      <div id="empty-tasks" class="empty-state">
+        <span class="empty-icon" aria-hidden="true">＋</span>
+        <p>添加第一款商品</p>
+        <span>选择型号、容量和颜色，即可检查 Central 附近门店。</span>
+      </div>
+      <div id="tasks" class="task-list"></div>
+      <div class="controls">
+        <button id="start" class="primary" disabled>开始监控</button>
+        <button id="check" class="secondary" disabled>立即检查</button>
+        <button id="stop" class="ghost" disabled>暂停</button>
+      </div>
+      <p id="last-check" class="last-check">尚未检查</p>
+      <p id="next-check" class="field-note">暂停时仍可单次检查。</p>
+      <p id="actual-timing" class="field-note timing-readout">尚无请求间隔记录。</p>
+    </section>
+
+    <section class="card scheduler-card view-section" data-panel="settings" hidden aria-labelledby="scheduler-title">
+      <div class="section-heading compact">
+        <div><p class="step">SCHEDULE</p><h2 id="scheduler-title">检查频率</h2></div>
+        <span id="visibility-badge" class="status-badge idle">面板状态</span>
+      </div>
+      <label class="setting-label" for="monitor-interval">重点商品检查间隔</label>
+      <select id="monitor-interval" aria-describedby="interval-note" disabled>
+        <option value="60">60 秒 · 默认</option>
+        <option value="20">20 秒 · 较快</option>
+        <option value="10">10 秒 · 加速 10 分钟</option>
+      </select>
+      <p id="interval-note" class="field-note">最小化后仍按设置安排检查。10 秒加速结束后恢复 20 秒；异常等待和官网受阻暂停优先于设定间隔。60 秒也不保证官网始终允许查询。</p>
+      <fieldset class="focus-fieldset">
+        <legend>重点商品 <span id="focus-count">0 / 8 款</span></legend>
+        <div id="focus-skus" class="focus-list"></div>
+      </fieldset>
+      <p class="field-note">按不同 SKU 计数，最多选择 8 款。同款的所有已选门店一起检查。留空时，列表不超过 8 款则全部按设定频率检查；超过 8 款则全部每 60 秒检查。其余商品每 60 秒检查。</p>
+      <button id="monitor-settings-save" class="primary setting-save" disabled>保存检查设置</button>
+      <p id="monitor-settings-message" class="form-message" role="status" aria-live="polite"></p>
+      <p id="schedule-summary" class="field-note"></p>
+    </section>
+
+    <section class="card connection-card view-section" data-panel="overview" aria-labelledby="connection-title">
+      <div class="section-heading compact">
+        <div><p class="step">连接与恢复</p><h2 id="connection-title">Apple 官网连接</h2></div>
+        <span id="connection-badge" class="status-badge idle">尚未验证</span>
+      </div>
+      <p id="connection-message" class="connection-message" role="status" aria-live="polite">首次有效查询后确认连接状态。</p>
+      <p id="connection-timing" class="field-note"></p>
+      <p id="desktop-connection-guide" class="field-note" hidden>首次连接：打开 Apple 官网 → 在程序内的官网窗口查询“查找附近的店铺” → 返回单次验证 → 验证通过后开始监控。页面打开不代表库存服务已恢复；没有门店服务响应时不会追加查询。首次验证仅查询一款商品。</p>
+      <div class="session-note">
+        <strong>541 / 查询受阻后，监控会持续暂停。</strong>
+        <p>先停止反复刷新，等待官网附近门店查询恢复。下方按钮只验证一批库存，不会自动刷新官网；成功后仍需手动开始监控。如果官网显示登录或验证要求，请本人处理。任务和历史会保留。</p>
+      </div>
+      <div class="bark-actions">
+        <button id="reconnect" class="primary" disabled>官网恢复后，单次验证</button>
+        <button id="diagnostics-export" class="secondary" disabled>导出诊断</button>
+      </div>
+      <p id="connection-action-message" class="form-message" role="status" aria-live="polite"></p>
+      <p class="field-note">诊断用于检查请求和恢复进度，不包含 Bark 设备密钥。</p>
+    </section>
+
+    <section class="card bark-card view-section" data-panel="settings" hidden aria-labelledby="bark-title">
+      <div class="section-heading compact">
+        <div><p class="step">NOTIFICATIONS</p><h2 id="bark-title">Bark 有货提醒</h2></div>
+        <span id="bark-configured" class="status-badge idle">正在读取…</span>
+      </div>
+      <div class="bark-settings">
+        <div>
+          <label class="bark-toggle"><input id="bark-enabled" type="checkbox" disabled><span>启用 Bark 通知</span></label>
+          <label for="bark-url" class="bark-input-label">Bark 推送地址或设备密钥</label>
+          <input id="bark-url" class="bark-url" type="password" autocomplete="off" spellcheck="false" placeholder="https://api.day.app/你的设备密钥" aria-describedby="bark-url-note" disabled>
+          <p id="bark-url-note" class="field-note">在手机 Bark 中复制推送地址，或粘贴设备密钥。目前仅支持官方 api.day.app 服务器。已保存后此处不显示密钥；留空会保留原配置。</p>
+          <div class="bark-actions">
+            <button id="bark-save" class="primary" disabled>保存通知设置</button>
+            <button id="bark-test" class="secondary" disabled>发送测试通知</button>
+            <button id="bark-clear" class="ghost" disabled>清除配置</button>
+          </div>
+          <p id="bark-message" class="form-message" role="status" aria-live="polite"></p>
+          <p id="bark-result" class="bark-result" role="status" aria-live="polite">尚无发送记录</p>
+        </div>
+        <div class="bark-description">
+          <strong>确认有货时，通知你的手机。</strong>
+          <p>首次检查有货、以及之后重新有货时推送，包含型号、容量、颜色、门店、检查时间和官网链接。持续有货，或查询异常后恢复为相同的有货结果，不会重复提醒。</p>
+          <p>设备密钥保存在此程序的本机数据中，不写入 CSV 或运行日志。通知内容会经 Bark 官方服务器发送至你的手机。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card purchase-card view-section" data-panel="purchase" hidden aria-labelledby="purchase-title">
+      <div class="section-heading compact">
+        <div><p class="step">OPTIONAL</p><h2 id="purchase-title">有货后，准备购物袋</h2></div>
+        <span id="purchase-badge" class="status-badge idle">默认关闭</span>
+      </div>
+      <div class="purchase-layout">
+        <div>
+          <label class="bark-toggle"><input id="purchase-enabled" type="checkbox" disabled><span>启用自动加入购物袋</span></label>
+          <label class="setting-label" for="purchase-sku">指定一款 iPhone（完整型号、容量、颜色与 SKU）</label>
+          <select id="purchase-sku" disabled></select>
+          <div class="purchase-price-grid">
+            <label><span>最高单价（HKD，必填）</span><input id="purchase-max-price" class="text-input" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="输入你接受的最高价格" disabled></label>
+            <div><span class="setting-label">数量</span><p class="quantity-fixed">1 件 <span>固定</span></p></div>
+          </div>
+          <fieldset class="priority-fieldset">
+            <legend>门店优先顺序</legend>
+            <p class="field-note">勾选允许的门店，用上移 / 下移调整顺序。仅显示这款商品已在监控的门店。</p>
+            <div id="purchase-stores" class="priority-list"></div>
+          </fieldset>
+          <div class="bark-actions">
+            <button id="purchase-save" class="primary" disabled>保存购买设置</button>
+            <button id="purchase-reset" class="ghost" disabled>允许此商品再次尝试</button>
+          </div>
+          <p id="purchase-message" class="form-message" role="status" aria-live="polite"></p>
+        </div>
+        <div>
+          <div class="bark-description">
+            <strong>只准备购物袋，付款由你完成。</strong>
+            <p>仅在确认指定商品有货、数量为 1、购物袋为空且价格不超过上限时尝试加入购物袋。遇到登录、验证码、换购、付款方式或门店选项，或无法核实商品和价格时，会打开指定商品并等待你处理。</p>
+            <p>加入购物袋不代表锁定库存或订单成立。请在官网核实商品、门店、价格和数量后手动付款。</p>
+            <p>每款商品的一次尝试会留有记录；再次尝试前，请先核实购物袋，避免重复加入。</p>
+          </div>
+          <h3 class="operation-title">准备购买记录</h3>
+          <div id="purchase-operations" class="purchase-operations" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card history-card view-section" data-panel="history" hidden aria-labelledby="history-title">
+      <div class="section-heading compact">
+        <div><p class="step">LOCAL HISTORY</p><h2 id="history-title">检查历史</h2></div>
+        <button id="history-export" class="secondary">导出 CSV</button>
+      </div>
+      <div class="history-toolbar">
+        <div class="segmented" role="group" aria-label="筛选历史">
+          <button id="history-all" aria-pressed="true">全部检查</button>
+          <button id="history-changes" aria-pressed="false">库存变化</button>
+        </div>
+        <p class="history-caption">异常单独记录；只有明确的库存结果才计入变化。</p>
+      </div>
+      <p id="history-error" class="history-warning" role="alert" hidden></p>
+      <div class="table-scroll" tabindex="0" aria-label="库存检查历史表格">
+        <table>
+          <thead><tr><th scope="col">检查时间</th><th scope="col">门店</th><th scope="col">商品</th><th scope="col">结果</th><th scope="col">详情</th></tr></thead>
+          <tbody id="history-body"><tr><td colspan="5" class="history-empty">正在读取历史…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="history-bottom">
+        <p id="history-message" class="field-note" role="status">每页显示 50 条记录。</p>
+        <div class="pagination">
+          <button id="history-prev" class="small-button" disabled aria-label="上一页历史">上一页</button>
+          <span id="history-page">共 0 条</span>
+          <button id="history-next" class="small-button" disabled aria-label="下一页历史">下一页</button>
+        </div>
+      </div>
+      <p id="history-retention" class="retention-note">本机保留最近 100,000 条检查记录，另保留 50,000 条库存变化记录。达到各自上限时删除该类最早记录。“导出备份”保存配置与历史 CSV，不含 Apple 登录会话和 Bark 密钥。完整保留本机状态，请在退出程序后复制程序旁的 Data 文件夹；删除它会丢失本机设置和历史。</p>
+    </section>
+
+    <section class="card log-card view-section" data-panel="history" hidden aria-labelledby="log-title">
+      <details>
+        <summary><span id="log-title">运行日志</span><span class="muted">查看查询进度与异常原因</span></summary>
+        <div id="logs" class="logs" aria-live="polite"></div>
+      </details>
+    </section>
+  </main>
+  <footer>库存来自 Apple 官网，显示的是最近一次检查结果；实际可提取情况以官网为准。可选购买功能只准备购物袋，订单确认和付款由你在官网完成。</footer>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

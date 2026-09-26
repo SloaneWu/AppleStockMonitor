@@ -1,0 +1,14 @@
+{
+  "name": "apple-stock-monitor-windows",
+  "productName": "Apple Stock Monitor",
+  "version": "4.0.1",
+  "description": "Apple 香港门店库存监控 Windows 桌面程序",
+  "main": "desktop/main.cjs",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "download-runtime": "node scripts/download-runtime.cjs",
+    "build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-portable.ps1"
+  }
+}

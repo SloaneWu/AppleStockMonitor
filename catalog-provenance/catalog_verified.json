@@ -1,0 +1,1546 @@
+{
+  "verified_product_count": 40,
+  "sources": [
+    {
+      "source_url": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro",
+      "fetched_at": "2026-09-22T15:05:45.605443+00:00",
+      "http_status": 200,
+      "decompressed_html_sha256": "a6a6c148e2573ccb5f48a719b7fd89c90b994a28cf5989ff0e19a97c9e308d6a",
+      "decompressed_html_size": 516245,
+      "records": [
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "1TB",
+            "Color": "布根地红色",
+            "Code": "MJY04ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 16799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 0,
+          "selection": {
+            "partNumber": "MJY04ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjy04za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJY04ZA/A",
+            "partNumber": "MJY04ZA/A",
+            "validProducts": [
+              "MJY04ZA/A",
+              "MJY14ZA/A",
+              "MJXX4ZA/A",
+              "MJXY4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$16,799",
+              "raw_amount": "16799.00"
+            },
+            "amountBeforeTradeIn": 16799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "1TB",
+            "Color": "冰川色",
+            "Code": "MJY14ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 16799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 1,
+          "selection": {
+            "partNumber": "MJY14ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjy14za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJY04ZA/A",
+            "partNumber": "MJY04ZA/A",
+            "validProducts": [
+              "MJY04ZA/A",
+              "MJY14ZA/A",
+              "MJXX4ZA/A",
+              "MJXY4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$16,799",
+              "raw_amount": "16799.00"
+            },
+            "amountBeforeTradeIn": 16799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "256GB",
+            "Color": "银色",
+            "Code": "MJXP4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%8A%80%E8%89%B2",
+            "Price": 11499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 2,
+          "selection": {
+            "partNumber": "MJXP4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjxp4za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJXP4ZA/A",
+            "partNumber": "MJXP4ZA/A",
+            "validProducts": [
+              "MJXP4ZA/A",
+              "MJXN4ZA/A",
+              "MJXR4ZA/A",
+              "MJXQ4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$11,499",
+              "raw_amount": "11499.00"
+            },
+            "amountBeforeTradeIn": 11499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "256GB",
+            "Color": "黑色",
+            "Code": "MJXN4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%BB%91%E8%89%B2",
+            "Price": 11499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 3,
+          "selection": {
+            "partNumber": "MJXN4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "black",
+            "fullPrice": "mjxn4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJXP4ZA/A",
+            "partNumber": "MJXP4ZA/A",
+            "validProducts": [
+              "MJXP4ZA/A",
+              "MJXN4ZA/A",
+              "MJXR4ZA/A",
+              "MJXQ4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$11,499",
+              "raw_amount": "11499.00"
+            },
+            "amountBeforeTradeIn": 11499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "512GB",
+            "Color": "黑色",
+            "Code": "MJXT4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%BB%91%E8%89%B2",
+            "Price": 13299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 4,
+          "selection": {
+            "partNumber": "MJXT4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "black",
+            "fullPrice": "mjxt4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJXT4ZA/A",
+            "partNumber": "MJXT4ZA/A",
+            "validProducts": [
+              "MJXT4ZA/A",
+              "MJXW4ZA/A",
+              "MJXV4ZA/A",
+              "MJXU4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$13,299",
+              "raw_amount": "13299.00"
+            },
+            "amountBeforeTradeIn": 13299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "2TB",
+            "Color": "冰川色",
+            "Code": "MJY54ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 21999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 5,
+          "selection": {
+            "partNumber": "MJY54ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjy54za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJY54ZA/A",
+            "partNumber": "MJY54ZA/A",
+            "validProducts": [
+              "MJY54ZA/A",
+              "MJY44ZA/A",
+              "MJY34ZA/A",
+              "MJY24ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$21,999",
+              "raw_amount": "21999.00"
+            },
+            "amountBeforeTradeIn": 21999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "2TB",
+            "Color": "布根地红色",
+            "Code": "MJY44ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 21999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 6,
+          "selection": {
+            "partNumber": "MJY44ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjy44za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJY54ZA/A",
+            "partNumber": "MJY54ZA/A",
+            "validProducts": [
+              "MJY54ZA/A",
+              "MJY44ZA/A",
+              "MJY34ZA/A",
+              "MJY24ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$21,999",
+              "raw_amount": "21999.00"
+            },
+            "amountBeforeTradeIn": 21999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "256GB",
+            "Color": "冰川色",
+            "Code": "MJXR4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 11499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 7,
+          "selection": {
+            "partNumber": "MJXR4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjxr4za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJXP4ZA/A",
+            "partNumber": "MJXP4ZA/A",
+            "validProducts": [
+              "MJXP4ZA/A",
+              "MJXN4ZA/A",
+              "MJXR4ZA/A",
+              "MJXQ4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$11,499",
+              "raw_amount": "11499.00"
+            },
+            "amountBeforeTradeIn": 11499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "2TB",
+            "Color": "银色",
+            "Code": "MJY34ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%8A%80%E8%89%B2",
+            "Price": 21999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 8,
+          "selection": {
+            "partNumber": "MJY34ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjy34za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJY54ZA/A",
+            "partNumber": "MJY54ZA/A",
+            "validProducts": [
+              "MJY54ZA/A",
+              "MJY44ZA/A",
+              "MJY34ZA/A",
+              "MJY24ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$21,999",
+              "raw_amount": "21999.00"
+            },
+            "amountBeforeTradeIn": 21999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "256GB",
+            "Color": "布根地红色",
+            "Code": "MJXQ4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 11499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 9,
+          "selection": {
+            "partNumber": "MJXQ4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjxq4za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJXP4ZA/A",
+            "partNumber": "MJXP4ZA/A",
+            "validProducts": [
+              "MJXP4ZA/A",
+              "MJXN4ZA/A",
+              "MJXR4ZA/A",
+              "MJXQ4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$11,499",
+              "raw_amount": "11499.00"
+            },
+            "amountBeforeTradeIn": 11499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "2TB",
+            "Color": "黑色",
+            "Code": "MJY24ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%BB%91%E8%89%B2",
+            "Price": 21999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 10,
+          "selection": {
+            "partNumber": "MJY24ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "black",
+            "fullPrice": "mjy24za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJY54ZA/A",
+            "partNumber": "MJY54ZA/A",
+            "validProducts": [
+              "MJY54ZA/A",
+              "MJY44ZA/A",
+              "MJY34ZA/A",
+              "MJY24ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$21,999",
+              "raw_amount": "21999.00"
+            },
+            "amountBeforeTradeIn": 21999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "1TB",
+            "Color": "黑色",
+            "Code": "MJXX4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%BB%91%E8%89%B2",
+            "Price": 16799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 11,
+          "selection": {
+            "partNumber": "MJXX4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "black",
+            "fullPrice": "mjxx4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJY04ZA/A",
+            "partNumber": "MJY04ZA/A",
+            "validProducts": [
+              "MJY04ZA/A",
+              "MJY14ZA/A",
+              "MJXX4ZA/A",
+              "MJXY4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$16,799",
+              "raw_amount": "16799.00"
+            },
+            "amountBeforeTradeIn": 16799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "512GB",
+            "Color": "冰川色",
+            "Code": "MJXW4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 13299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 12,
+          "selection": {
+            "partNumber": "MJXW4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjxw4za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJXT4ZA/A",
+            "partNumber": "MJXT4ZA/A",
+            "validProducts": [
+              "MJXT4ZA/A",
+              "MJXW4ZA/A",
+              "MJXV4ZA/A",
+              "MJXU4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$13,299",
+              "raw_amount": "13299.00"
+            },
+            "amountBeforeTradeIn": 13299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "512GB",
+            "Color": "布根地红色",
+            "Code": "MJXV4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 13299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 13,
+          "selection": {
+            "partNumber": "MJXV4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjxv4za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJXT4ZA/A",
+            "partNumber": "MJXT4ZA/A",
+            "validProducts": [
+              "MJXT4ZA/A",
+              "MJXW4ZA/A",
+              "MJXV4ZA/A",
+              "MJXU4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$13,299",
+              "raw_amount": "13299.00"
+            },
+            "amountBeforeTradeIn": 13299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "512GB",
+            "Color": "银色",
+            "Code": "MJXU4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%8A%80%E8%89%B2",
+            "Price": 13299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 14,
+          "selection": {
+            "partNumber": "MJXU4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjxu4za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJXT4ZA/A",
+            "partNumber": "MJXT4ZA/A",
+            "validProducts": [
+              "MJXT4ZA/A",
+              "MJXW4ZA/A",
+              "MJXV4ZA/A",
+              "MJXU4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$13,299",
+              "raw_amount": "13299.00"
+            },
+            "amountBeforeTradeIn": 13299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro Max",
+            "Capacity": "1TB",
+            "Color": "银色",
+            "Code": "MJXY4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%8A%80%E8%89%B2",
+            "Price": 16799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 15,
+          "selection": {
+            "partNumber": "MJXY4ZA/A",
+            "familyType": "iphone18promax",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjxy4za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.9-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJY04ZA/A",
+            "partNumber": "MJY04ZA/A",
+            "validProducts": [
+              "MJY04ZA/A",
+              "MJY14ZA/A",
+              "MJXX4ZA/A",
+              "MJXY4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$16,799",
+              "raw_amount": "16799.00"
+            },
+            "amountBeforeTradeIn": 16799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "1TB",
+            "Color": "黑色",
+            "Code": "MJRY4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%BB%91%E8%89%B2",
+            "Price": 15799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 16,
+          "selection": {
+            "partNumber": "MJRY4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "black",
+            "fullPrice": "mjry4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJRY4ZA/A",
+            "partNumber": "MJRY4ZA/A",
+            "validProducts": [
+              "MJRY4ZA/A",
+              "MJT24ZA/A",
+              "MJT04ZA/A",
+              "MJT14ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$15,799",
+              "raw_amount": "15799.00"
+            },
+            "amountBeforeTradeIn": 15799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "1TB",
+            "Color": "冰川色",
+            "Code": "MJT24ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 15799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 17,
+          "selection": {
+            "partNumber": "MJT24ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjt24za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJRY4ZA/A",
+            "partNumber": "MJRY4ZA/A",
+            "validProducts": [
+              "MJRY4ZA/A",
+              "MJT24ZA/A",
+              "MJT04ZA/A",
+              "MJT14ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$15,799",
+              "raw_amount": "15799.00"
+            },
+            "amountBeforeTradeIn": 15799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "256GB",
+            "Color": "黑色",
+            "Code": "MJRP4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%BB%91%E8%89%B2",
+            "Price": 10499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 18,
+          "selection": {
+            "partNumber": "MJRP4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "black",
+            "fullPrice": "mjrp4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJRP4ZA/A",
+            "partNumber": "MJRP4ZA/A",
+            "validProducts": [
+              "MJRP4ZA/A",
+              "MJRT4ZA/A",
+              "MJRQ4ZA/A",
+              "MJRR4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$10,499",
+              "raw_amount": "10499.00"
+            },
+            "amountBeforeTradeIn": 10499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "2TB",
+            "Color": "黑色",
+            "Code": "MJT34ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%BB%91%E8%89%B2",
+            "Price": 20999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 19,
+          "selection": {
+            "partNumber": "MJT34ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "black",
+            "fullPrice": "mjt34za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJT34ZA/A",
+            "partNumber": "MJT34ZA/A",
+            "validProducts": [
+              "MJT34ZA/A",
+              "MJT64ZA/A",
+              "MJT44ZA/A",
+              "MJT54ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$20,999",
+              "raw_amount": "20999.00"
+            },
+            "amountBeforeTradeIn": 20999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "1TB",
+            "Color": "银色",
+            "Code": "MJT04ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%8A%80%E8%89%B2",
+            "Price": 15799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 20,
+          "selection": {
+            "partNumber": "MJT04ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjt04za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJRY4ZA/A",
+            "partNumber": "MJRY4ZA/A",
+            "validProducts": [
+              "MJRY4ZA/A",
+              "MJT24ZA/A",
+              "MJT04ZA/A",
+              "MJT14ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$15,799",
+              "raw_amount": "15799.00"
+            },
+            "amountBeforeTradeIn": 15799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "1TB",
+            "Color": "布根地红色",
+            "Code": "MJT14ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 15799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 21,
+          "selection": {
+            "partNumber": "MJT14ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjt14za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJRY4ZA/A",
+            "partNumber": "MJRY4ZA/A",
+            "validProducts": [
+              "MJRY4ZA/A",
+              "MJT24ZA/A",
+              "MJT04ZA/A",
+              "MJT14ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$15,799",
+              "raw_amount": "15799.00"
+            },
+            "amountBeforeTradeIn": 15799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "2TB",
+            "Color": "冰川色",
+            "Code": "MJT64ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 20999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 22,
+          "selection": {
+            "partNumber": "MJT64ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjt64za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJT34ZA/A",
+            "partNumber": "MJT34ZA/A",
+            "validProducts": [
+              "MJT34ZA/A",
+              "MJT64ZA/A",
+              "MJT44ZA/A",
+              "MJT54ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$20,999",
+              "raw_amount": "20999.00"
+            },
+            "amountBeforeTradeIn": 20999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "256GB",
+            "Color": "冰川色",
+            "Code": "MJRT4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 10499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 23,
+          "selection": {
+            "partNumber": "MJRT4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjrt4za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJRP4ZA/A",
+            "partNumber": "MJRP4ZA/A",
+            "validProducts": [
+              "MJRP4ZA/A",
+              "MJRT4ZA/A",
+              "MJRQ4ZA/A",
+              "MJRR4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$10,499",
+              "raw_amount": "10499.00"
+            },
+            "amountBeforeTradeIn": 10499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "256GB",
+            "Color": "银色",
+            "Code": "MJRQ4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%8A%80%E8%89%B2",
+            "Price": 10499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 24,
+          "selection": {
+            "partNumber": "MJRQ4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjrq4za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJRP4ZA/A",
+            "partNumber": "MJRP4ZA/A",
+            "validProducts": [
+              "MJRP4ZA/A",
+              "MJRT4ZA/A",
+              "MJRQ4ZA/A",
+              "MJRR4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$10,499",
+              "raw_amount": "10499.00"
+            },
+            "amountBeforeTradeIn": 10499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "2TB",
+            "Color": "银色",
+            "Code": "MJT44ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%8A%80%E8%89%B2",
+            "Price": 20999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 25,
+          "selection": {
+            "partNumber": "MJT44ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjt44za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJT34ZA/A",
+            "partNumber": "MJT34ZA/A",
+            "validProducts": [
+              "MJT34ZA/A",
+              "MJT64ZA/A",
+              "MJT44ZA/A",
+              "MJT54ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$20,999",
+              "raw_amount": "20999.00"
+            },
+            "amountBeforeTradeIn": 20999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "256GB",
+            "Color": "布根地红色",
+            "Code": "MJRR4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 10499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 26,
+          "selection": {
+            "partNumber": "MJRR4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjrr4za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJRP4ZA/A",
+            "partNumber": "MJRP4ZA/A",
+            "validProducts": [
+              "MJRP4ZA/A",
+              "MJRT4ZA/A",
+              "MJRQ4ZA/A",
+              "MJRR4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$10,499",
+              "raw_amount": "10499.00"
+            },
+            "amountBeforeTradeIn": 10499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "2TB",
+            "Color": "布根地红色",
+            "Code": "MJT54ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 20999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 27,
+          "selection": {
+            "partNumber": "MJT54ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjt54za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJT34ZA/A",
+            "partNumber": "MJT34ZA/A",
+            "validProducts": [
+              "MJT34ZA/A",
+              "MJT64ZA/A",
+              "MJT44ZA/A",
+              "MJT54ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$20,999",
+              "raw_amount": "20999.00"
+            },
+            "amountBeforeTradeIn": 20999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "512GB",
+            "Color": "布根地红色",
+            "Code": "MJRW4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+            "Price": 12299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 28,
+          "selection": {
+            "partNumber": "MJRW4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "burgundy",
+            "fullPrice": "mjrw4za_a"
+          },
+          "official_color": "布根地紅色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%B8%83%E6%A0%B9%E5%9C%B0%E7%B4%85%E8%89%B2",
+          "price": {
+            "product": "MJRW4ZA/A",
+            "partNumber": "MJRW4ZA/A",
+            "validProducts": [
+              "MJRW4ZA/A",
+              "MJRX4ZA/A",
+              "MJRU4ZA/A",
+              "MJRV4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$12,299",
+              "raw_amount": "12299.00"
+            },
+            "amountBeforeTradeIn": 12299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "512GB",
+            "Color": "冰川色",
+            "Code": "MJRX4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+            "Price": 12299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 29,
+          "selection": {
+            "partNumber": "MJRX4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "glacier",
+            "fullPrice": "mjrx4za_a"
+          },
+          "official_color": "冰川色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%86%B0%E5%B7%9D%E8%89%B2",
+          "price": {
+            "product": "MJRW4ZA/A",
+            "partNumber": "MJRW4ZA/A",
+            "validProducts": [
+              "MJRW4ZA/A",
+              "MJRX4ZA/A",
+              "MJRU4ZA/A",
+              "MJRV4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$12,299",
+              "raw_amount": "12299.00"
+            },
+            "amountBeforeTradeIn": 12299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "512GB",
+            "Color": "黑色",
+            "Code": "MJRU4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%BB%91%E8%89%B2",
+            "Price": 12299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 30,
+          "selection": {
+            "partNumber": "MJRU4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "black",
+            "fullPrice": "mjru4za_a"
+          },
+          "official_color": "黑色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%BB%91%E8%89%B2",
+          "price": {
+            "product": "MJRW4ZA/A",
+            "partNumber": "MJRW4ZA/A",
+            "validProducts": [
+              "MJRW4ZA/A",
+              "MJRX4ZA/A",
+              "MJRU4ZA/A",
+              "MJRV4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$12,299",
+              "raw_amount": "12299.00"
+            },
+            "amountBeforeTradeIn": 12299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone 18 Pro",
+            "Capacity": "512GB",
+            "Color": "银色",
+            "Code": "MJRV4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%8A%80%E8%89%B2",
+            "Price": 12299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:45.605443+00:00"
+          },
+          "selection_index": 31,
+          "selection": {
+            "partNumber": "MJRV4ZA/A",
+            "familyType": "iphone18pro",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "silver",
+            "fullPrice": "mjrv4za_a"
+          },
+          "official_color": "銀色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-18-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E9%8A%80%E8%89%B2",
+          "price": {
+            "product": "MJRW4ZA/A",
+            "partNumber": "MJRW4ZA/A",
+            "validProducts": [
+              "MJRW4ZA/A",
+              "MJRX4ZA/A",
+              "MJRU4ZA/A",
+              "MJRV4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$12,299",
+              "raw_amount": "12299.00"
+            },
+            "amountBeforeTradeIn": 12299.0
+          }
+        }
+      ]
+    },
+    {
+      "source_url": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo",
+      "fetched_at": "2026-09-22T15:05:46.039364+00:00",
+      "http_status": 200,
+      "decompressed_html_sha256": "7b735e885cd59df38e949384e9afa4eb627380212bbab0ec8e7445640237a5e2",
+      "decompressed_html_size": 404774,
+      "records": [
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "1TB",
+            "Color": "星光白色",
+            "Code": "MK2H4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+            "Price": 22799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 0,
+          "selection": {
+            "partNumber": "MK2H4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "starwhite",
+            "fullPrice": "mk2h4za_a"
+          },
+          "official_color": "星光白色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+          "price": {
+            "product": "MK2H4ZA/A",
+            "partNumber": "MK2H4ZA/A",
+            "validProducts": [
+              "MK2H4ZA/A",
+              "MK2J4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$22,799",
+              "raw_amount": "22799.00"
+            },
+            "amountBeforeTradeIn": 22799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "1TB",
+            "Color": "夜空色",
+            "Code": "MK2J4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+            "Price": 22799,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 1,
+          "selection": {
+            "partNumber": "MK2J4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "1tb",
+            "dimensionColor": "nightsky",
+            "fullPrice": "mk2j4za_a"
+          },
+          "official_color": "夜空色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-1tb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+          "price": {
+            "product": "MK2H4ZA/A",
+            "partNumber": "MK2H4ZA/A",
+            "validProducts": [
+              "MK2H4ZA/A",
+              "MK2J4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$22,799",
+              "raw_amount": "22799.00"
+            },
+            "amountBeforeTradeIn": 22799.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "512GB",
+            "Color": "星光白色",
+            "Code": "MK2F4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+            "Price": 19299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 2,
+          "selection": {
+            "partNumber": "MK2F4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "starwhite",
+            "fullPrice": "mk2f4za_a"
+          },
+          "official_color": "星光白色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+          "price": {
+            "product": "MK2F4ZA/A",
+            "partNumber": "MK2F4ZA/A",
+            "validProducts": [
+              "MK2F4ZA/A",
+              "MK2G4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$19,299",
+              "raw_amount": "19299.00"
+            },
+            "amountBeforeTradeIn": 19299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "512GB",
+            "Color": "夜空色",
+            "Code": "MK2G4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+            "Price": 19299,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 3,
+          "selection": {
+            "partNumber": "MK2G4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "512gb",
+            "dimensionColor": "nightsky",
+            "fullPrice": "mk2g4za_a"
+          },
+          "official_color": "夜空色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-512gb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+          "price": {
+            "product": "MK2F4ZA/A",
+            "partNumber": "MK2F4ZA/A",
+            "validProducts": [
+              "MK2F4ZA/A",
+              "MK2G4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$19,299",
+              "raw_amount": "19299.00"
+            },
+            "amountBeforeTradeIn": 19299.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "256GB",
+            "Color": "星光白色",
+            "Code": "MK2D4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+            "Price": 17499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 4,
+          "selection": {
+            "partNumber": "MK2D4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "starwhite",
+            "fullPrice": "mk2d4za_a"
+          },
+          "official_color": "星光白色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+          "price": {
+            "product": "MK2D4ZA/A",
+            "partNumber": "MK2D4ZA/A",
+            "validProducts": [
+              "MK2D4ZA/A",
+              "MK2E4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$17,499",
+              "raw_amount": "17499.00"
+            },
+            "amountBeforeTradeIn": 17499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "256GB",
+            "Color": "夜空色",
+            "Code": "MK2E4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+            "Price": 17499,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 5,
+          "selection": {
+            "partNumber": "MK2E4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "256gb",
+            "dimensionColor": "nightsky",
+            "fullPrice": "mk2e4za_a"
+          },
+          "official_color": "夜空色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+          "price": {
+            "product": "MK2D4ZA/A",
+            "partNumber": "MK2D4ZA/A",
+            "validProducts": [
+              "MK2D4ZA/A",
+              "MK2E4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$17,499",
+              "raw_amount": "17499.00"
+            },
+            "amountBeforeTradeIn": 17499.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "2TB",
+            "Color": "星光白色",
+            "Code": "MK2K4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+            "Price": 27999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 6,
+          "selection": {
+            "partNumber": "MK2K4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "starwhite",
+            "fullPrice": "mk2k4za_a"
+          },
+          "official_color": "星光白色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E6%98%9F%E5%85%89%E7%99%BD%E8%89%B2",
+          "price": {
+            "product": "MK2K4ZA/A",
+            "partNumber": "MK2K4ZA/A",
+            "validProducts": [
+              "MK2K4ZA/A",
+              "MK2L4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$27,999",
+              "raw_amount": "27999.00"
+            },
+            "amountBeforeTradeIn": 27999.0
+          }
+        },
+        {
+          "product": {
+            "Model": "iPhone Duo",
+            "Capacity": "2TB",
+            "Color": "夜空色",
+            "Code": "MK2L4ZA/A",
+            "Type": "iphone",
+            "PurchasePath": "/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+            "Price": 27999,
+            "CatalogVerifiedAt": "2026-09-22T15:05:46.039364+00:00",
+            "PreorderAt": "2026-10-16T20:00:00+08:00"
+          },
+          "selection_index": 7,
+          "selection": {
+            "partNumber": "MK2L4ZA/A",
+            "familyType": "iphoneduo",
+            "dimensionCapacity": "2tb",
+            "dimensionColor": "nightsky",
+            "fullPrice": "mk2l4za_a"
+          },
+          "official_color": "夜空色",
+          "href": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo/7.6-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-2tb-%E5%A4%9C%E7%A9%BA%E8%89%B2",
+          "price": {
+            "product": "MK2K4ZA/A",
+            "partNumber": "MK2K4ZA/A",
+            "validProducts": [
+              "MK2K4ZA/A",
+              "MK2L4ZA/A"
+            ],
+            "priceCurrency": "HKD",
+            "currentPrice": {
+              "amount": "HK$27,999",
+              "raw_amount": "27999.00"
+            },
+            "amountBeforeTradeIn": 27999.0
+          }
+        }
+      ]
+    }
+  ],
+  "preorder": {
+    "source_url": "https://www.apple.com/hk-zh/shop/buy-iphone/iphone-duo",
+    "announcement": "10 月 16 日晚上 8 時起接受預訂",
+    "normalized": "2026-10-16T20:00:00+08:00",
+    "interpretation": "The public Hong Kong announcement gives October 16, 8 PM. Year 2026 comes from the current 2026 launch context; Asia/Hong_Kong is UTC+08:00."
+  },
+  "limitations": [
+    "Public catalog metadata only; no inventory request or cart mutation.",
+    "Published price and preorder date may change; verify again before ordering.",
+    "PurchasePath is copied from an official href matched to exact model, capacity and color."
+  ]
+}
