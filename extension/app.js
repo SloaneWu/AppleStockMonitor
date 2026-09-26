@@ -17,12 +17,13 @@ const elements = Object.fromEntries([
   "bark-enabled", "bark-url", "bark-configured", "bark-save", "bark-test", "bark-clear",
   "bark-message", "bark-result", "actual-timing", "monitor-interval", "focus-count", "focus-skus",
   "monitor-settings-save", "monitor-settings-message", "schedule-summary", "visibility-badge",
-  "connection-badge", "connection-message", "connection-timing", "reconnect", "diagnostics-export",
+  "connection-badge", "connection-message", "connection-timing", "reconnect", "diagnostics-export", "reset-apple-session", "reset-session-note",
   "connection-action-message", "purchase-enabled", "purchase-sku", "purchase-max-price", "purchase-stores",
   "purchase-save", "purchase-reset", "purchase-message", "purchase-badge", "purchase-operations",
   "task-search", "task-filter", "filter-summary", "no-matches", "clear-filters", "selected-product",
   "summary-products", "summary-tasks", "summary-stores", "summary-available", "summary-attention",
   "attention-banner", "attention-title", "attention-description", "show-connection", "global-message",
+  "proxy-badge", "proxy-mode", "proxy-scheme", "proxy-host", "proxy-port", "proxy-save", "proxy-test", "proxy-default", "proxy-message",
   "desktop-toolbar", "desktop-status", "desktop-data-path", "desktop-open-apple", "desktop-open-data", "desktop-backup", "desktop-message", "desktop-connection-guide"
 ].map((id) => [id, document.getElementById(id)]));
 
@@ -57,6 +58,11 @@ let focusDraft = [];
 let focusSignature = "";
 let connectionHealth = {};
 let reconnectBusy = false;
+let resetBusy = false;
+let proxySettings = null;
+let proxyDefaults = null;
+let proxyBusy = false;
+let proxyDirty = false;
 let diagnosticsBusy = false;
 let pulsePending = false;
 let purchaseSettings = null;
@@ -116,7 +122,7 @@ function bindEvents() {
   });
   elements['show-connection'].addEventListener('click', () => { document.getElementById('connection-title').scrollIntoView({ behavior: 'smooth', block: 'center' }); elements.reconnect.focus({ preventScroll: true }); });
   window.addEventListener('beforeunload', event => {
-    if (barkDirty || settingsDirty || purchaseDirty) { event.preventDefault(); event.returnValue = ''; }
+    if (barkDirty || settingsDirty || purchaseDirty || proxyDirty) { event.preventDefault(); event.returnValue = ''; }
   });
   elements.store.addEventListener("change", () => runAction(saveSelection));
   elements.model.addEventListener("change", () => runAction(async () => {
@@ -178,6 +184,19 @@ function bindEvents() {
   elements["monitor-interval"].addEventListener("change", markSettingsDirty);
   elements["monitor-settings-save"].addEventListener("click", saveMonitorSettings);
   elements.reconnect.addEventListener("click", reconnect);
+  if (desktop) {
+    elements["reset-apple-session"].addEventListener("click", resetAppleSession);
+    for (const id of ["proxy-mode", "proxy-scheme", "proxy-host", "proxy-port"]) {
+      elements[id].addEventListener(id === "proxy-host" || id === "proxy-port" ? "input" : "change", () => { proxyDirty = true; renderProxy(); });
+    }
+    elements["proxy-save"].addEventListener("click", saveProxy);
+    elements["proxy-test"].addEventListener("click", testProxy);
+    elements["proxy-default"].addEventListener("click", () => {
+      if (!proxyDefaults) return;
+      fillProxy(proxyDefaults); proxyDirty = true; renderProxy();
+      setMessage("proxy-message", "已填入默认值（Clash Verge 127.0.0.1:7897），点击保存后生效。");
+    });
+  }
   elements["diagnostics-export"].addEventListener("click", exportDiagnostics);
   elements["purchase-enabled"].addEventListener("change", markPurchaseDirty);
   elements["purchase-max-price"].addEventListener("input", markPurchaseDirty);
@@ -225,6 +244,9 @@ async function initializeDesktop() {
   if (!desktop) return;
   elements["desktop-toolbar"].hidden = false;
   elements["desktop-connection-guide"].hidden = false;
+  elements["reset-apple-session"].hidden = false;
+  elements["reset-session-note"].hidden = false;
+  void refreshProxy();
   renderDesktopControls();
   try {
     const info = await desktop.getInfo();
@@ -250,6 +272,7 @@ async function runDesktopAction(action) {
 
 function renderDesktopControls() {
   if (!desktop) return;
+  renderProxy();
   elements["desktop-open-apple"].disabled = desktopBusy;
   elements["desktop-open-data"].disabled = desktopBusy;
   elements["desktop-backup"].disabled = desktopBusy || !initialized || monitoring || Boolean(monitorState.checking);
@@ -372,7 +395,8 @@ function renderScheduleSummary() {
     : "已保存：目前没有重点商品，全部每 60 秒检查。";
   elements["schedule-summary"].textContent = text + (boostSeconds ? " 加速剩余 " + Math.floor(boostSeconds / 60) + " 分 " + boostSeconds % 60 + " 秒。" : "") +
     (desktop ? " 最小化到托盘后仍会继续检查；电脑休眠期间不能检查。" : !visible ? " 面板在后台，自动检查至少间隔 30 秒（Chrome 120+）。" : "") +
-    " 全部 " + productCodes.length + " 款查一轮最多分 " + Math.ceil(productCodes.length / 8) + " 批请求；60 秒并不代表每分钟只有一次请求。实际间隔受请求耗时、系统调度及异常等待影响。";
+    " 全部 " + productCodes.length + " 款查一轮最多分 " + Math.ceil(productCodes.length / 8) + " 批请求；60 秒并不代表每分钟只有一次请求。实际间隔受请求耗时、系统调度及异常等待影响。" +
+    " 所有查询共用一个上限：连续最多约 20 次，之后约每分钟恢复 1 次，20 秒或 10 秒频率运行一段时间后会自动放慢。";
 }
 
 function manualRecoveryHeld() {
@@ -395,6 +419,85 @@ function renderConnectionHealth() {
   elements.reconnect.disabled = !initialized || !tasks.length || reconnectBusy || pendingAction || monitorState.checking || state === "recovering" || retryAt > Date.now();
   elements.reconnect.textContent = reconnectBusy || state === "recovering" ? "正在单次验证…" : desktop ? "连接官网，单次验证" : "官网恢复后，单次验证";
   elements["diagnostics-export"].disabled = !initialized || diagnosticsBusy;
+  if (desktop) {
+    elements["reset-apple-session"].disabled = !initialized || resetBusy || reconnectBusy || pendingAction || monitoring || Boolean(monitorState.checking) || state === "recovering";
+    elements["reset-apple-session"].textContent = resetBusy ? "正在重置…" : "重置官网会话";
+    elements["reset-apple-session"].title = monitoring || monitorState.checking ? "先暂停监控，等本次检查结束后可重置" : "清空程序内官网的 Cookie 和缓存；任务与历史保留";
+  }
+}
+
+function proxyDraft() {
+  return { mode: elements["proxy-mode"].value, scheme: elements["proxy-scheme"].value,
+    host: elements["proxy-host"].value.trim(), port: Number(elements["proxy-port"].value) };
+}
+
+function fillProxy(settings) {
+  elements["proxy-mode"].value = settings.mode;
+  elements["proxy-scheme"].value = settings.scheme;
+  elements["proxy-host"].value = settings.host;
+  elements["proxy-port"].value = String(settings.port);
+}
+
+function renderProxy() {
+  if (!desktop) return;
+  const loaded = Boolean(proxySettings);
+  const custom = elements["proxy-mode"].value === "custom";
+  const locked = monitoring || Boolean(monitorState.checking);
+  elements["proxy-mode"].disabled = !loaded || proxyBusy;
+  for (const id of ["proxy-scheme", "proxy-host", "proxy-port"]) elements[id].disabled = !loaded || proxyBusy || !custom;
+  elements["proxy-save"].disabled = !loaded || proxyBusy || !proxyDirty || locked;
+  elements["proxy-save"].title = locked ? "先暂停监控，等本次检查结束后可修改代理" : "";
+  elements["proxy-test"].disabled = !loaded || proxyBusy || !custom;
+  elements["proxy-default"].disabled = !loaded || proxyBusy;
+  if (loaded) {
+    elements["proxy-badge"].textContent = proxyDirty ? "有未保存修改" : { custom: "使用代理", system: "系统代理", direct: "直连" }[proxySettings.mode];
+    elements["proxy-badge"].className = "status-badge " + (proxyDirty ? "warning" : "running");
+  }
+}
+
+async function refreshProxy() {
+  try {
+    const result = await desktop.getProxy();
+    proxySettings = result.settings; proxyDefaults = result.defaults;
+    if (!proxyDirty) fillProxy(proxySettings);
+    setMessage("proxy-message", "当前：" + result.label);
+  } catch (error) { setMessage("proxy-message", "读取代理设置失败：" + (error.message || String(error)), true); }
+  renderProxy();
+}
+
+async function saveProxy() {
+  if (proxyBusy) return;
+  proxyBusy = true; renderProxy();
+  try {
+    const result = await desktop.setProxy(proxyDraft());
+    proxySettings = result.settings; proxyDirty = false; fillProxy(proxySettings);
+    setMessage("proxy-message", "已保存并生效：" + result.label + "。官网窗口已打开的页面，下次加载或查询时使用新线路。");
+  } catch (error) { setMessage("proxy-message", error.message || String(error), true); }
+  finally { proxyBusy = false; renderProxy(); }
+}
+
+async function testProxy() {
+  if (proxyBusy) return;
+  proxyBusy = true; renderProxy();
+  setMessage("proxy-message", "正在测试代理端口…");
+  try {
+    const result = await desktop.testProxy(proxyDraft());
+    setMessage("proxy-message", result.message, !result.ok);
+  } catch (error) { setMessage("proxy-message", error.message || String(error), true); }
+  finally { proxyBusy = false; renderProxy(); }
+}
+
+async function resetAppleSession() {
+  if (resetBusy) return;
+  if (!globalThis.confirm?.("重置官网会话？\n\n将关闭程序内的官网窗口，并清空其 Cookie 和缓存。任务、历史、设置和 Bark 保留。\n重置后需重新打开官网查询附近门店，再单次验证。")) return;
+  resetBusy = true;
+  renderConnectionHealth();
+  setMessage("connection-action-message", "正在重置官网会话…");
+  try {
+    const result = await request({ type: "reset-apple-session" });
+    setMessage("connection-action-message", result.message || "官网会话已重置。");
+  } catch (error) { setMessage("connection-action-message", error.message, true); }
+  finally { resetBusy = false; renderConnectionHealth(); renderMonitorState(); }
 }
 
 async function reconnect() {
@@ -807,7 +910,7 @@ function renderTasks() {
 function switchView() {
   const views = { overview: ['监控概览', '关注你的下一部 iPhone，掌握每家门店的最近库存。'], history: ['历史与日志', '回看每次检查，区分库存变化与连接异常。'], settings: ['频率与通知', '设置检查节奏，让有货提醒及时到达。'], purchase: ['购买准备', '指定商品、门店与价格上限，随时接管后续购买。'] };
   currentView = Object.hasOwn(views, location.hash.slice(1)) ? location.hash.slice(1) : 'overview';
-  document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== currentView; });
+  document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== currentView || (panel.hasAttribute('data-desktop-only') && !desktop); });
   document.querySelectorAll('[data-view]').forEach(button => {
     const selected = button.dataset.view === currentView;
     button.classList.toggle('active', selected);
@@ -866,6 +969,9 @@ function renderMonitorState() {
     elements["next-check"].textContent = "自动查询已暂停。确认 Apple 官网附近门店查询恢复后，点击「官网恢复后，单次验证」。成功后再手动开始监控；任务和历史保留。";
   } else if (cooldown > 0) {
     elements["next-check"].textContent = "最早可再次检查：" + formatTime(notBefore) + "。查询异常时会延长等待时间。";
+  } else if (monitoring && timeValue(monitorState.budgetWaitUntil) > Date.now() && timeValue(monitorState.nextCheck) <= timeValue(monitorState.budgetWaitUntil) + 1000) {
+    elements["next-check"].textContent = "已达到连续查询上限，下次检查：" + formatTime(monitorState.budgetWaitUntil) + "（约 " +
+      Math.ceil((timeValue(monitorState.budgetWaitUntil) - Date.now()) / 1000) + " 秒后）。为避免官网会话被拒，快速查询一段时间后会自动放慢到约每分钟一次。";
   } else if (monitoring && monitorState.nextCheck) {
     const due = timeValue(monitorState.nextCheck);
     elements["next-check"].textContent = "下次计划检查：" + formatTime(monitorState.nextCheck) + (due > Date.now()

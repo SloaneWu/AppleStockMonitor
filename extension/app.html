@@ -128,7 +128,9 @@
       <div class="bark-actions">
         <button id="reconnect" class="primary" disabled>官网恢复后，单次验证</button>
         <button id="diagnostics-export" class="secondary" disabled>导出诊断</button>
+        <button id="reset-apple-session" class="secondary" hidden disabled>重置官网会话</button>
       </div>
+      <p id="reset-session-note" class="field-note" hidden>长时间受阻、等待后单次验证仍然失败时使用：只清空程序内官网窗口的 Cookie 和缓存，任务、历史、设置和 Bark 保留，效果相当于重新下载程序但不丢数据。重置后需重新打开官网查询附近门店，再单次验证。</p>
       <p id="connection-action-message" class="form-message" role="status" aria-live="polite"></p>
       <p class="field-note">诊断用于检查请求和恢复进度，不包含 Bark 设备密钥。</p>
     </section>
@@ -156,6 +158,39 @@
           <strong>确认有货时，通知你的手机。</strong>
           <p>首次检查有货、以及之后重新有货时推送，包含型号、容量、颜色、门店、检查时间和官网链接。持续有货，或查询异常后恢复为相同的有货结果，不会重复提醒。</p>
           <p>设备密钥保存在此程序的本机数据中，不写入 CSV 或运行日志。通知内容会经 Bark 官方服务器发送至你的手机。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card proxy-card view-section" data-panel="settings" data-desktop-only hidden aria-labelledby="proxy-title">
+      <div class="section-heading compact">
+        <div><p class="step">NETWORK</p><h2 id="proxy-title">网络代理</h2></div>
+        <span id="proxy-badge" class="status-badge idle">正在读取…</span>
+      </div>
+      <div class="bark-settings">
+        <div>
+          <label class="setting-label" for="proxy-mode">官网窗口的连接方式</label>
+          <select id="proxy-mode" disabled>
+            <option value="custom">本地 / 指定代理（默认 Clash Verge）</option>
+            <option value="system">跟随 Windows 系统代理</option>
+            <option value="direct">直连，不使用代理</option>
+          </select>
+          <div class="proxy-grid">
+            <label><span>类型</span><select id="proxy-scheme" disabled><option value="http">HTTP</option><option value="socks5">SOCKS5</option></select></label>
+            <label><span>地址</span><input id="proxy-host" class="text-input" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="127.0.0.1" disabled></label>
+            <label><span>端口</span><input id="proxy-port" class="text-input" type="number" min="1" max="65535" step="1" placeholder="7897" disabled></label>
+          </div>
+          <div class="bark-actions">
+            <button id="proxy-save" class="primary" disabled>保存代理设置</button>
+            <button id="proxy-test" class="secondary" disabled>测试代理端口</button>
+            <button id="proxy-default" class="ghost" disabled>恢复默认</button>
+          </div>
+          <p id="proxy-message" class="form-message" role="status" aria-live="polite"></p>
+        </div>
+        <div class="bark-description">
+          <strong>程序内的 Apple 官网窗口经此代理访问。</strong>
+          <p>默认使用本机 Clash Verge 的混合端口 127.0.0.1:7897（HTTP）。如果你在 Clash Verge 中改过端口，请在此同步修改；未运行代理软件时，请改为“直连”。</p>
+          <p>“测试代理端口”只检查端口能否连接，不经代理访问 Apple。修改代理需先暂停监控；保存后立即生效，下次单次验证或检查即走新线路。Bark 通知不经此代理。</p>
         </div>
       </div>
     </section>

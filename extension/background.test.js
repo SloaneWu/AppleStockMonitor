@@ -959,3 +959,85 @@ test('desktop gate closure at dispatch is not recorded as an HTTP error', async 
   assert.equal(h.history.length, 0);
   assert.equal(h.data.connectionHealth.desktopPreparation, true);
 });
+
+test('20-second cadence drains the shared budget, then slows to one request per minute', async () => {
+  const h = await harness({ data: { monitoring: true, tasks: tasks(), monitorSettings: { intervalSeconds: 20, focusSkus: [] } } });
+  for (let i = 0; i < 90; i++) { await h.message({ type: 'scheduler-pulse' }); h.advance(20000); }
+  // 30 minutes at 20 seconds would be 90 requests; the bucket allows 20 plus ~1 per minute.
+  assert.ok(h.requests.length >= 48 && h.requests.length <= 51, 'requests: ' + h.requests.length);
+  const late = h.requests.slice(-8).map(r => r.at);
+  for (let i = 1; i < late.length; i++) assert.ok(late[i] - late[i - 1] >= 60000);
+  const manual = await h.message({ type: 'check-now' });
+  if (manual.ok === false) assert.match(manual.error, /连续查询上限/);
+  assert.ok(h.data.monitorState.budgetWaitUntil === '' || Date.parse(h.data.monitorState.budgetWaitUntil) > h.now() - 60000);
+});
+
+test('exhausted budget blocks manual checks and validation across a worker restart', async () => {
+  const first = await harness({ data: { monitoring: false, tasks: tasks(), requestBudget: { tokens: 0, updatedAt: baseTime } } });
+  const manual = await first.message({ type: 'check-now' });
+  assert.equal(manual.ok, false);
+  assert.match(manual.error, /连续查询上限.*60 秒/);
+  assert.equal(first.requests.length, 0);
+  const second = await harness({ data: first.data, history: first.history, now: first.now() + 30000 });
+  assert.match((await second.message({ type: 'reconnect' })).error, /连续查询上限/);
+  second.advance(30000);
+  assert.equal((await second.message({ type: 'check-now' })).ok, true);
+  assert.equal(second.requests.length, 1);
+  assert.ok(second.data.requestBudget.tokens < 1);
+});
+
+test('a second batch waits for budget instead of being sent back to back', async () => {
+  const h = await harness({ data: { monitoring: true, tasks: tasks(12), requestBudget: { tokens: 1, updatedAt: baseTime } } });
+  await h.message({ type: 'scheduler-pulse' });
+  assert.equal(h.requests.length, 1);
+  h.advance(30000);
+  await h.message({ type: 'scheduler-pulse' });
+  assert.equal(h.requests.length, 1);
+  h.advance(30000);
+  await h.message({ type: 'scheduler-pulse' });
+  assert.equal(h.requests.length, 2);
+  const parts = request => [...new URL(request.path, 'https://www.apple.com').searchParams].filter(([key]) => key.startsWith('parts.')).map(([, code]) => code);
+  // The batch that was starved of budget goes first, so every SKU is covered within two requests.
+  assert.equal(new Set([...parts(h.requests[0]), ...parts(h.requests[1])]).size, 12);
+});
+
+test('desktop preparation that sends nothing does not spend the request budget', async () => {
+  const h = await harness({ data: { monitoring: false, tasks: tasks(), requestBudget: { tokens: 5, updatedAt: baseTime } },
+    desktop: { prepareStockCheck: async () => ({ ready: false, reason: 'website-not-ready', message: '请先完成官网门店查询' }) } });
+  assert.equal((await h.message({ type: 'check-now' })).ok, false);
+  assert.equal(h.requests.length, 0);
+  assert.deepEqual(h.data.requestBudget, { tokens: 5, updatedAt: baseTime });
+});
+
+test('Apple session reset is desktop-only, requires a pause, and keeps tasks, history and budget', async () => {
+  const plain = await harness({ data: { monitoring: false, tasks: tasks() } });
+  assert.match((await plain.message({ type: 'reset-apple-session' })).error, /仅 Windows 桌面版/);
+
+  let resets = 0;
+  const desktop = { prepareStockCheck: async () => ({ ready: true }), resetAppleSession: async () => { resets++; return { ok: true }; } };
+  const h = await harness({ data: { monitoring: true, tasks: tasks(3), ownedMonitorTab: 7 }, desktop });
+  await h.message({ type: 'check-now' });
+  assert.equal(h.data.connectionHealth.state, 'healthy');
+  assert.match((await h.message({ type: 'reset-apple-session' })).error, /先暂停监控/);
+  assert.equal(resets, 0);
+  await h.message({ type: 'stop-monitor' });
+  const historyBefore = clone(h.history), tasksBefore = clone(h.data.tasks), budgetBefore = clone(h.data.requestBudget);
+  const result = await h.message({ type: 'reset-apple-session' });
+  assert.equal(result.ok, true);
+  assert.equal(resets, 1);
+  assert.deepEqual(h.history, historyBefore);
+  assert.deepEqual(h.data.tasks, tasksBefore);
+  assert.deepEqual(h.data.requestBudget, budgetBefore);
+  assert.equal(h.data.ownedMonitorTab, null);
+  assert.equal(h.data.monitoring, false);
+  assert.equal(h.data.connectionHealth.manualRecoveryRequired, true);
+  assert.equal(h.data.connectionHealth.preparationReason, 'session-reset');
+  assert.equal(h.data.connectionHealth.lastSuccessAt, undefined);
+  assert.match((await h.message({ type: 'start-monitor', tasks: tasksBefore })).error, /官网会话已重置/);
+  // The next validation is the single-SKU first-connection probe.
+  h.advance(60000);
+  const before = h.requests.length;
+  assert.equal((await h.message({ type: 'reconnect' })).recoveryValidated, true);
+  assert.equal(h.requests.length, before + 1);
+  assert.equal(new URL(h.requests.at(-1).path, 'https://www.apple.com').searchParams.has('parts.1'), false);
+});

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { settingsValue, intervalForSku, dueAt, nextDue, restoreItems, keyForTask, isStockPage, safeDiagnostic } from './scheduler.js';
+import { settingsValue, intervalForSku, dueAt, nextDue, restoreItems, keyForTask, isStockPage, safeDiagnostic, REQUEST_BUDGET, budgetValue, budgetReadyAt, spendBudget } from './scheduler.js';
 
 const now = Date.parse('2026-09-22T12:00:00Z');
 const tasks = Array.from({ length: 9 }, (_, n) => ({ id: 't' + n, areaCode: 'hk', product: { Code: `MJ${n}ZA/A` }, store: { StoreNumber: 'R428' } }));
@@ -37,4 +37,18 @@ test('diagnostics are an explicit allowlist and cannot persist arbitrary respons
   assert.equal(result.status, 541);
   assert.equal(safeDiagnostic({ diagnosticStage: 'bridge-probe' }).stage, 'bridge-probe');
   assert.equal(safeDiagnostic({ diagnosticStage: 'COOKIESECRET' }).stage, undefined);
+});
+test('shared request budget allows a burst, then refills one request per minute', () => {
+  assert.deepEqual(budgetValue({}, now), { tokens: REQUEST_BUDGET.capacity, updatedAt: now });
+  let saved = {};
+  for (let i = 0; i < REQUEST_BUDGET.capacity; i++) {
+    assert.equal(budgetReadyAt(saved, now), 0);
+    saved = { requestBudget: spendBudget(saved, now) };
+  }
+  assert.equal(budgetReadyAt(saved, now), now + REQUEST_BUDGET.refillMs);
+  assert.equal(dueAt(tasks[0], saved, now), now + REQUEST_BUDGET.refillMs);
+  assert.equal(budgetReadyAt(saved, now + REQUEST_BUDGET.refillMs), 0);
+  assert.equal(budgetValue(saved, now + 3600000).tokens, REQUEST_BUDGET.capacity);
+  assert.equal(budgetValue(saved, now - 3600000).tokens, 0, 'a clock moved backwards grants nothing');
+  assert.equal(budgetValue({ requestBudget: { tokens: 'x', updatedAt: now } }, now).tokens, REQUEST_BUDGET.capacity);
 });

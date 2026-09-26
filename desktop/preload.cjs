@@ -93,13 +93,17 @@ if (role) {
     action: { onClicked: event('action.onClicked') },
     desktop: role === 'engine' ? {
       prepareStockCheck: method('desktop.prepareStockCheck'),
+      resetAppleSession: method('desktop.resetAppleSession'),
       engineReady() { ipcRenderer.send('desktop:engine-ready'); }
     } : {
       getInfo: method('desktop.getInfo'),
       openApple: method('desktop.openApple'),
       connectionDiagnostics: method('desktop.connectionDiagnostics'),
       openDataFolder: method('desktop.openDataFolder'),
-      backupData: method('desktop.backupData')
+      backupData: method('desktop.backupData'),
+      getProxy: method('desktop.getProxy'),
+      setProxy: method('desktop.setProxy'),
+      testProxy: method('desktop.testProxy')
     }
   };
 

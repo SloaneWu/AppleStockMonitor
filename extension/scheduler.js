@@ -1,8 +1,32 @@
 export const LEASE_MS = 60000;
 export const BOOST_MS = 600000;
 export const DEFAULT_SETTINGS = { intervalSeconds: 20, boostUntil: 0, focusSkus: [] };
+// One shared bucket for every inventory request this program sends, whatever
+// the SKU interval or manual action. Field reports tie HTTP 541 to the number of
+// queries a session has made (bursts of ~30 back-to-back), after which the
+// session stays blocked; short intervals therefore drain to about one per minute.
+export const REQUEST_BUDGET = { capacity: 20, refillMs: 60000 };
 export const keyForTask = task => task.areaCode + '|' + task.product.Code + '|' + task.store.StoreNumber;
 export const requiresManualRecovery = health => health?.manualRecoveryRequired === true || health?.state === 'needs-user' || health?.recoveryPending === true;
+
+export function budgetValue(saved = {}, now = Date.now()) {
+  const budget = saved.requestBudget, capacity = REQUEST_BUDGET.capacity;
+  const tokens = Number(budget?.tokens), updatedAt = Number(budget?.updatedAt);
+  if (!Number.isFinite(tokens) || !Number.isFinite(updatedAt)) return { tokens: capacity, updatedAt: now };
+  // A clock moved backwards grants no refill.
+  const refill = Math.max(0, now - updatedAt) / REQUEST_BUDGET.refillMs;
+  return { tokens: Math.min(capacity, Math.max(0, tokens) + refill), updatedAt: now };
+}
+
+export function budgetReadyAt(saved, now = Date.now()) {
+  const { tokens } = budgetValue(saved, now);
+  return tokens >= 1 - 1e-9 ? 0 : now + Math.ceil((1 - tokens) * REQUEST_BUDGET.refillMs);
+}
+
+export function spendBudget(saved, now = Date.now()) {
+  const { tokens } = budgetValue(saved, now);
+  return { tokens: Math.max(0, tokens - 1), updatedAt: now };
+}
 
 export function settingsValue(saved = {}, now = Date.now()) {
   return { intervalSeconds: saved.intervalSeconds === 60 ? 60 : 20,
@@ -24,7 +48,7 @@ export function availableFrom(product) {
 
 export function dueAt(task, saved, now = Date.now()) {
   return Math.max(availableFrom(task.product), Number(saved.skuCooldowns?.[task.product.Code]?.nextAt) || 0,
-    Number(saved.connectionHealth?.notBefore) || 0, Number(saved.inflight?.until) || 0);
+    Number(saved.connectionHealth?.notBefore) || 0, Number(saved.inflight?.until) || 0, budgetReadyAt(saved, now));
 }
 
 export function nextDue(tasks, saved, now = Date.now()) {

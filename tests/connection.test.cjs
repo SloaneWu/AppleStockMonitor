@@ -60,3 +60,11 @@ test('monitor response evidence and counts remain separate from website traffic'
   assert.equal(state.snapshot().monitorRequests, 2);
   assert.equal(state.snapshot().recent.at(-1).kind, 'monitor');
 });
+test('a proxy failure message replaces the generic page-load failure', () => {
+  const state = createConnectionState();
+  state.failed('无法通过代理打开官网');
+  assert.deepEqual(state.readiness(), { ready: false, reason: 'page-load-failed', message: '无法通过代理打开官网' });
+  const generic = createConnectionState();
+  generic.failed();
+  assert.match(generic.readiness().message, /官网页面加载失败/);
+});

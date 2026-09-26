@@ -2,14 +2,14 @@ import { buildFulfillmentPath, productPurchaseURL } from './shared.js';
 import { appendHistory, readHistory, exportHistory } from './history.js';
 import { groupTasks, retryDelay, classifyResponse, recordOutcome } from './monitor-core.js';
 import { parseBarkKey, stockBarkMessages, sendBark } from './bark.js';
-import { LEASE_MS, BOOST_MS, settingsValue, intervalForSku, keyForTask, availableFrom, dueAt, nextDue, migrateState, restoreItems, isStockPage, safeDiagnostic, requiresManualRecovery } from './scheduler.js';
+import { LEASE_MS, BOOST_MS, REQUEST_BUDGET, budgetValue, budgetReadyAt, spendBudget, settingsValue, intervalForSku, keyForTask, availableFrom, dueAt, nextDue, migrateState, restoreItems, isStockPage, safeDiagnostic, requiresManualRecovery } from './scheduler.js';
 import { createNotificationQueue } from './notification-queue.js';
 import { createPurchaseManager } from './purchase.js';
 
 const api = chrome;
 const ALARM = 'apple-hk-stock-check';
 const DASHBOARD = api.runtime.getURL('app.html');
-const KEYS = ['tasks', 'monitoring', 'monitorState', 'monitorSettings', 'skuCooldowns', 'stockMemory', 'connectionHealth', 'inflight', 'ownedMonitorTab'];
+const KEYS = ['tasks', 'monitoring', 'monitorState', 'monitorSettings', 'skuCooldowns', 'stockMemory', 'connectionHealth', 'inflight', 'ownedMonitorTab', 'requestBudget'];
 const MANUAL_RECOVERY_MESSAGE = api.desktop
   ? '官网查询受阻，监控已暂停。请打开程序内的官网并查询附近门店，再点击“连接官网，单次验证”；冷却结束不会自动重试。'
   : '官网查询受阻，监控已暂停。请先确认官网附近门店查询恢复，再使用“官网恢复后，单次验证”；冷却结束不会自动重试。';
@@ -121,6 +121,8 @@ async function publishState(changes = {}) {
   const next = nextDue(saved.tasks || [], saved);
   state.notBefore = next > Date.now() ? new Date(next).toISOString() : '';
   state.nextCheck = saved.monitoring && next ? new Date(Math.max(next, Date.now())).toISOString() : '';
+  const budgetWait = budgetReadyAt(saved);
+  state.budgetWaitUntil = budgetWait ? new Date(budgetWait).toISOString() : '';
   await api.storage.local.set({ monitorState: state });
   return state;
 }
@@ -180,9 +182,10 @@ async function handleMessage(message) {
     case 'get-history': return { ok: true, ...await readHistory(message) };
     case 'export-history': return { ok: true, csv: await exportHistory(message.mode) };
     case 'export-diagnostics': {
-      const { diagnostics = [], connectionHealth = {}, monitorSettings = {} } = await api.storage.local.get(['diagnostics', 'connectionHealth', 'monitorSettings']);
+      const { diagnostics = [], connectionHealth = {}, monitorSettings = {}, requestBudget } = await api.storage.local.get(['diagnostics', 'connectionHealth', 'monitorSettings', 'requestBudget']);
       return { ok: true, json: JSON.stringify({ version: api.runtime.getManifest().version, exportedAt: new Date().toISOString(),
-        diagnostics, connectionHealth, monitorSettings: settingsValue(monitorSettings), note: '无 Cookie、Bark 密钥或原始响应内容。' }, null, 2) };
+        diagnostics, connectionHealth, monitorSettings: settingsValue(monitorSettings),
+        requestBudget: { ...REQUEST_BUDGET, ...budgetValue({ requestBudget }) }, note: '无 Cookie、Bark 密钥或原始响应内容。' }, null, 2) };
     }
     case 'save-tasks': {
       if (currentCheck) throw new Error('请暂停并等待当前操作结束后修改任务');
@@ -230,6 +233,7 @@ async function handleMessage(message) {
       await api.storage.local.set({ monitoring: false });
       await api.alarms.clear(ALARM); await publishState(); return { ok: true };
     }
+    case 'reset-apple-session': return resetAppleSession();
     case 'check-now': return runStockCheck(true);
     case 'scheduler-pulse': return runStockCheck(false);
     case 'reconnect': return reconnect();
@@ -241,6 +245,14 @@ async function handleMessage(message) {
   }
 }
 
+// True when the shared request budget, not a SKU interval or cooldown, is what delays the earliest check.
+function budgetLimits(tasks, saved, now = Date.now()) {
+  const wait = budgetReadyAt(saved, now);
+  return Boolean(wait) && tasks.length > 0 && wait >= Math.min(...tasks.map(task => dueAt(task, saved, now)));
+}
+function budgetMessage(readyAt, now = Date.now()) {
+  return `已达到连续查询上限：为避免官网会话被拒，程序限制短时间内的查询次数，约 ${Math.ceil((readyAt - now) / 1000)} 秒后可再查询；无需删除监控。`;
+}
 function runStockCheck(manual) {
   const startRevision = revision;
   return withCheckLock(() => performStockCheck(manual, startRevision));
@@ -265,6 +277,7 @@ async function performStockCheck(manual, startRevision = revision, manualRecover
   if (saved.inflight && saved.inflight.until <= now) { await api.storage.local.set({ inflight: null }); saved.inflight = null; }
   const due = tasks.filter(task => dueAt(task, saved, now) <= now);
   if (!due.length) {
+    if (manual && budgetLimits(tasks, saved, now)) throw new Error(budgetMessage(budgetReadyAt(saved, now), now));
     if (manual && tasks.some(t => availableFrom(t.product) <= now)) throw new Error('正在等待上次请求或官网冷却，请查看最早可检查时间；无需删除监控。');
     return { ok: true };
   }
@@ -272,19 +285,23 @@ async function performStockCheck(manual, startRevision = revision, manualRecover
   try {
     // Recovery is one bounded probe, never a sweep over every watched SKU.
     const firstDesktopCheck = Boolean(api.desktop?.prepareStockCheck && (manualRecovery || !saved.connectionHealth?.lastSuccessAt));
-    const groups = groupTasks(due).slice(0, manualRecovery || firstDesktopCheck ? 1 : undefined);
+    const dueSince = Object.fromEntries(Object.entries(saved.skuCooldowns || {}).map(([code, value]) => [code, value?.nextAt]));
+    const groups = groupTasks(due, dueSince).slice(0, manualRecovery || firstDesktopCheck ? 1 : undefined);
     if (firstDesktopCheck && groups[0]) groups[0] = groups[0].filter(task => task.product.Code === groups[0][0].product.Code);
     for (const group of groups) {
       if (revision !== startRevision) break;
       saved = await api.storage.local.get(KEYS);
       if (requiresManualRecovery(saved.connectionHealth) && !manualRecovery) break;
       if ((saved.connectionHealth?.notBefore || 0) > Date.now()) break;
+      // Remaining batches wait for the shared budget; their SKU deadlines stay due.
+      if (budgetReadyAt(saved)) break;
       const started = Date.now(), skus = [...new Set(group.map(t => t.product.Code))];
       const skuCooldowns = saved.skuCooldowns || {};
       const previousCooldowns = { ...skuCooldowns };
       for (const code of skus) skuCooldowns[code] = { ...skuCooldowns[code], nextAt: started + intervalForSku(code, saved.monitorSettings, tasks, started) };
       const lease = { id: String(started) + ':' + skus.join(','), until: started + LEASE_MS, skus };
-      await api.storage.local.set({ skuCooldowns, inflight: lease });
+      // Charge before dispatch so a suspended worker cannot resend for free.
+      await api.storage.local.set({ skuCooldowns, inflight: lease, requestBudget: spendBudget(saved, started) });
       if (revision !== startRevision) break;
       let result, tab, stockSent = false;
       try {
@@ -312,7 +329,8 @@ async function performStockCheck(manual, startRevision = revision, manualRecover
           if (previousCooldowns[code]) restoredCooldowns[code] = previousCooldowns[code];
           else delete restoredCooldowns[code];
         }
-        await api.storage.local.set({ monitoring: false, connectionHealth: health, inflight: null, skuCooldowns: restoredCooldowns });
+        await api.storage.local.set({ monitoring: false, connectionHealth: health, inflight: null, skuCooldowns: restoredCooldowns,
+          requestBudget: saved.requestBudget ?? null });
         await ensureSchedule();
         return { ok: false, manualRecoveryRequired: true, error: health.message };
       }
@@ -478,7 +496,9 @@ async function performReconnect(startRevision) {
   }
   const tasks = await validateTasks(saved.tasks);
   if (revision !== startRevision) return { ok: true, cancelled: true };
-  if (!tasks.some(task => dueAt(task, saved) <= Date.now())) throw new Error('尚未到达可验证时间，请等待商品开放、请求间隔或冷却结束后再试。');
+  if (!tasks.some(task => dueAt(task, saved) <= Date.now())) {
+    throw new Error(budgetLimits(tasks, saved) ? budgetMessage(budgetReadyAt(saved)) : '尚未到达可验证时间，请等待商品开放、请求间隔或冷却结束后再试。');
+  }
   // Keep the durable latch throughout the probe, including worker suspension or
   // cancellation. Only a fully parsed response may clear it, never opening a tab.
   await api.storage.local.set({ monitoring: false, connectionHealth: { ...saved.connectionHealth, state: 'recovering',
@@ -498,6 +518,28 @@ async function performReconnect(startRevision) {
   const { connectionHealth } = await api.storage.local.get('connectionHealth');
   if (requiresManualRecovery(connectionHealth)) return { ok: false, manualRecoveryRequired: true, error: connectionHealth.message };
   return { ok: true, recoveryValidated: true, message: '单次验证通过；任务、历史和设置均保留。监控仍暂停，请手动开始监控。' };
+}
+function resetAppleSession() {
+  if (!api.desktop?.resetAppleSession) throw new Error('仅 Windows 桌面版支持重置官网会话');
+  if (currentCheck) throw new Error('请等待当前检查结束后再重置官网会话');
+  return withCheckLock(async () => {
+    const saved = await api.storage.local.get(KEYS);
+    if (saved.monitoring) throw new Error('请先暂停监控，再重置官网会话');
+    if ((saved.inflight?.until || 0) > Date.now()) throw new Error('上次请求仍可能在途，请等待到期后再重置官网会话');
+    await api.desktop.resetAppleSession();
+    // A fresh session has no proof of a working store service. Keep any active
+    // cooldown and the request budget; require the normal first-connection probe.
+    const { lastSuccessAt, ...previous } = saved.connectionHealth || {};
+    const health = { ...previous, state: 'needs-user', manualRecoveryRequired: true, recoveryPending: false,
+      desktopPreparation: true, preparationReason: 'session-reset',
+      message: '官网会话已重置（程序内官网的 Cookie 与缓存已清空，任务和历史保留）。请打开 Apple 官网并查询一次附近门店，再点击“连接官网，单次验证”。' };
+    await api.storage.local.set({ connectionHealth: health, ownedMonitorTab: null, monitoring: false });
+    await ensureSchedule();
+    const state = await publishState();
+    addLog(state, '已重置程序内官网会话；任务、历史和设置保留，需重新连接官网并单次验证。');
+    await api.storage.local.set({ monitorState: state });
+    return { ok: true, message: health.message };
+  });
 }
 async function openDashboard() {
   const tabs = await api.tabs.query({ url: DASHBOARD });

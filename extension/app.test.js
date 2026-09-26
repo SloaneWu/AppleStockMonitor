@@ -212,7 +212,7 @@ test('all four navigation buttons and invalid hash update panels and aria-curren
     ui.window.document.querySelector(`[data-view="${view}"]`).click();
     await until(() => ui.window.document.querySelector(`[data-view="${view}"]`).getAttribute('aria-current') === 'page');
     for (const panel of ui.window.document.querySelectorAll('[data-panel]')) {
-      if (panel.id !== 'attention-banner') assert.equal(panel.hidden, panel.dataset.panel !== view);
+      if (panel.id !== 'attention-banner') assert.equal(panel.hidden, panel.dataset.panel !== view || panel.hasAttribute('data-desktop-only'));
     }
     assert.equal(ui.window.document.querySelectorAll('[aria-current="page"]').length, 1);
   }
@@ -447,4 +447,63 @@ test('DOM first-install empty storage supports adding all six stores and removin
   assert.equal(ui.$('check').disabled, true);
   assert.equal(ui.$('no-matches').hidden, true);
   assert.equal((await ui.state(['tasks'])).tasks.length, 0);
+});
+
+test('desktop session reset needs a pause and explicit confirmation, then shows the next step', async t => {
+  let confirms = 0, answer = false;
+  const ui = await harness(t, { prepare(chrome) {
+    chrome.desktop = { getInfo: async () => ({ version: '4.0.1' }), openApple: async () => {}, openDataFolder: async () => {}, backupData: async () => ({}) };
+  } });
+  ui.window.confirm = () => { confirms++; return answer; };
+  ui.intercept(async (message, send) => message.type === 'reset-apple-session'
+    ? { ok: true, message: '官网会话已重置，请打开 Apple 官网并查询一次附近门店。' } : send(message));
+  assert.equal(ui.$('reset-apple-session').hidden, false);
+  assert.equal(ui.$('reset-session-note').hidden, false);
+  await ui.update({ monitoring: true });
+  assert.equal(ui.$('reset-apple-session').disabled, true);
+  await ui.update({ monitoring: false });
+  assert.equal(ui.$('reset-apple-session').disabled, false);
+  ui.click('reset-apple-session');
+  assert.equal(confirms, 1);
+  assert.equal(ui.requests.some(message => message.type === 'reset-apple-session'), false, 'cancelled confirmation sends nothing');
+  answer = true;
+  ui.click('reset-apple-session');
+  await until(() => /官网会话已重置/.test(ui.$('connection-action-message').textContent));
+  assert.equal(ui.requests.filter(message => message.type === 'reset-apple-session').length, 1);
+  assert.equal(ui.$('reset-apple-session').disabled, false);
+});
+
+test('desktop proxy card loads the saved route, validates edits locally in main, and locks while monitoring', async t => {
+  const saved = [], tested = [];
+  const plain = value => JSON.parse(JSON.stringify(value));
+  let current = { mode: 'custom', scheme: 'http', host: '127.0.0.1', port: 7897 };
+  const ui = await harness(t, { prepare(chrome) {
+    chrome.desktop = {
+      getInfo: async () => ({ version: '4.0.1' }), openApple: async () => {}, openDataFolder: async () => {}, backupData: async () => ({}),
+      getProxy: async () => ({ settings: current, defaults: { mode: 'custom', scheme: 'http', host: '127.0.0.1', port: 7897 }, label: 'HTTP 127.0.0.1:7897' }),
+      setProxy: async settings => { saved.push(settings); current = settings; return { settings, label: 'HTTP ' + settings.host + ':' + settings.port }; },
+      testProxy: async settings => { tested.push(settings); return { ok: false, message: '无法连接 127.0.0.1:7890' }; }
+    };
+  } });
+  ui.window.location.hash = 'settings';
+  await until(() => ui.$('proxy-host').value === '127.0.0.1' && !ui.$('proxy-title').closest('section').hidden);
+  assert.equal(ui.$('proxy-port').value, '7897');
+  assert.equal(ui.$('proxy-save').disabled, true, 'nothing to save before an edit');
+  ui.change('proxy-port', '7890', 'input');
+  assert.equal(ui.unsaved(), true);
+  ui.click('proxy-test');
+  await until(() => /无法连接/.test(ui.$('proxy-message').textContent));
+  assert.deepEqual(plain(tested), [{ mode: 'custom', scheme: 'http', host: '127.0.0.1', port: 7890 }]);
+  await ui.update({ monitoring: true });
+  assert.equal(ui.$('proxy-save').disabled, true);
+  await ui.update({ monitoring: false });
+  ui.click('proxy-save');
+  await until(() => /已保存并生效/.test(ui.$('proxy-message').textContent));
+  assert.deepEqual(plain(saved), [{ mode: 'custom', scheme: 'http', host: '127.0.0.1', port: 7890 }]);
+  ui.change('proxy-mode', 'direct');
+  assert.equal(ui.$('proxy-host').disabled, true);
+  assert.equal(ui.$('proxy-test').disabled, true);
+  ui.click('proxy-default');
+  assert.equal(ui.$('proxy-mode').value, 'custom');
+  assert.equal(ui.$('proxy-port').value, '7897');
 });

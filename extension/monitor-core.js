@@ -3,8 +3,11 @@ import { parseStockResponse } from './shared.js';
 export const STATUS = { available: '有货', unavailable: '无货', ineligible: '不可提取' };
 export const MIN_INTERVAL_MS = 60000;
 
-export function groupTasks(tasks) {
-  const skus = [...new Set(tasks.map(t => t.product.Code))].sort();
+// `dueSince` orders SKUs by how long they have been due, so a rationed request
+// budget rotates through batches instead of repeating the first one.
+export function groupTasks(tasks, dueSince = {}) {
+  const skus = [...new Set(tasks.map(t => t.product.Code))].sort()
+    .sort((a, b) => (Number(dueSince[a]) || 0) - (Number(dueSince[b]) || 0));
   const groups = [];
   for (let i = 0; i < skus.length; i += 8) {
     const selected = new Set(skus.slice(i, i + 8));

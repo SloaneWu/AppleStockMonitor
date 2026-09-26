@@ -23,7 +23,7 @@ function createConnectionState(now = Date.now) {
   return {
     begin() { generation++; loading = true; loadError = ''; pickup = null; page = null; approvedGeneration = -1; },
     loaded() { loading = false; },
-    failed() { loading = false; loadError = '官网页面加载失败，请在官网窗口手动检查网络连接。'; },
+    failed(message = '官网页面加载失败，请在官网窗口手动检查网络连接。') { loading = false; loadError = message; },
     observe(details) {
       const kind = requestKind(details.url, details.resourceType);
       if (!kind) return;

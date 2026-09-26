@@ -7,6 +7,7 @@ const { pathToFileURL } = require('node:url');
 const crypto = require('node:crypto');
 const { createStorage } = require('./storage.cjs');
 const { createConnectionState, requestKind } = require('./connection.cjs');
+const { DEFAULT_PROXY, PROXY_FAILURES, normalizeProxy, proxyConfig, proxyLabel, testProxyPort } = require('./proxy.cjs');
 const { APP_ORIGIN, APP_ID, VERSION, isAppleNavigation, isAppleShop, appResource, isLocalPage } = require('./policy.cjs');
 
 const root = path.resolve(__dirname, '..');
@@ -21,7 +22,7 @@ app.setAppUserModelId('AppleStockMonitor.Desktop');
 protocol.registerSchemesAsPrivileged([{ scheme: 'stockapp', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 const localPages = new Map(), remoteWindows = new Map(), alarms = new Map(), pending = new Map();
 let store, dashboard, engine, tray, quitting = false, shuttingDown = false, closeDialog = false, backupBusy = false;
-let resolveEngine;
+let resolveEngine, proxySettings = { ...DEFAULT_PROXY };
 const engineReady = new Promise(resolve => { resolveEngine = resolve; });
 const icon = path.join(root, 'extension/icons/icon128.png');
 const pageURL = `${APP_ORIGIN}/app.html`;
@@ -133,7 +134,10 @@ async function createRemote(url, active = false) {
     if (mainFrame && !inPlace) { win.requestedURL = destination; win.stockConnection.begin(); }
   });
   win.webContents.on('did-fail-load', (_event, code, _description, _url, mainFrame) => {
-    if (mainFrame && code !== -3) { win.stockConnection.failed(); sendEvent('tabs.onUpdated', [tabId, { status: 'complete' }, tabFor(win)], true); }
+    if (mainFrame && code !== -3) {
+      win.stockConnection.failed(PROXY_FAILURES.has(code) ? `无法通过代理（${proxyLabel(proxySettings)}）打开官网，请确认代理软件已运行，或在“频率与通知 → 网络代理”中修改。` : undefined);
+      sendEvent('tabs.onUpdated', [tabId, { status: 'complete' }, tabFor(win)], true);
+    }
   });
   win.webContents.on('did-finish-load', () => {
     void (async () => {
@@ -177,8 +181,37 @@ async function prepareStockCheck(id) {
   if (!result.ready) { win.show(); win.focus(); }
   return result;
 }
+// Called by the engine while it holds its check lock with monitoring paused.
+// Equivalent to starting from a fresh Data\Browser for the Apple window only:
+// the dashboard/engine session (tasks, history) is untouched.
+async function resetAppleSession() {
+  const windows = [...remoteWindows.values()].filter(win => !win.isDestroyed());
+  if (windows.some(win => win.monitorInFlight)) throw new Error('库存请求仍在进行，请稍后再重置');
+  for (const win of windows) win.destroy();
+  remoteWindows.clear();
+  smokeState.tab = null;
+  const ses = session.fromPartition('persist:apple-shop');
+  await ses.clearStorageData();
+  await ses.clearCache();
+  return { ok: true };
+}
+async function applyProxy(settings) {
+  const ses = session.fromPartition('persist:apple-shop');
+  await ses.setProxy(proxyConfig(settings));
+  // Pooled sockets would otherwise keep using the previous route.
+  await ses.closeAllConnections();
+  proxySettings = settings;
+}
+async function saveProxy(input) {
+  const state = await store.get(['monitoring', 'monitorState']);
+  if (state.monitoring || state.monitorState?.checking) throw new Error('请先暂停监控并等待本次检查结束，再修改代理');
+  const settings = normalizeProxy(input);
+  await store.set({ proxySettings: settings });
+  await applyProxy(settings);
+  return { settings, label: proxyLabel(settings) };
+}
 function connectionDiagnostics() {
-  return { version: VERSION, electron: process.versions.electron, chromium: process.versions.chrome,
+  return { version: VERSION, electron: process.versions.electron, chromium: process.versions.chrome, proxy: proxyLabel(proxySettings),
     windows: [...remoteWindows.values()].filter(win => !win.isDestroyed()).map(win => win.stockConnection.snapshot()),
     note: '仅记录本程序官网窗口的页面/门店接口状态；不含网址参数、请求头、Cookie、响应正文或浏览器个人数据。' };
 }
@@ -218,6 +251,13 @@ async function call(event, request) {
     if (method === 'desktop.connectionDiagnostics') return connectionDiagnostics();
     if (method === 'desktop.openDataFolder') { const error = await shell.openPath(dataPath); if (error) throw new Error(error); return { ok: true }; }
     if (method === 'desktop.backupData') return backupData();
+    if (method === 'desktop.getProxy') return { settings: proxySettings, defaults: DEFAULT_PROXY, label: proxyLabel(proxySettings) };
+    if (method === 'desktop.setProxy') return saveProxy(args[0]);
+    if (method === 'desktop.testProxy') {
+      const settings = normalizeProxy(args[0]);
+      if (settings.mode !== 'custom') return { ok: true, message: settings.mode === 'direct' ? '直连模式不使用代理，无需测试。' : '跟随系统代理时，由 Windows 代理设置决定线路。' };
+      return testProxyPort(settings);
+    }
     if (method === 'storage.local.get') {
       const keys = args[0];
       if (!Array.isArray(keys) || keys.some(key => !['tasks', 'monitoring', 'monitorState', 'uiSelection', 'connectionHealth'].includes(key))) throw new Error('面板不允许直接读取此设置');
@@ -240,6 +280,7 @@ async function call(event, request) {
   }
   switch (method) {
     case 'desktop.prepareStockCheck': return prepareStockCheck(args[0]);
+    case 'desktop.resetAppleSession': return resetAppleSession();
     case 'storage.local.get': return store.get(args[0]);
     case 'storage.local.set': return store.set(args[0]);
     case 'storage.local.setAccessLevel': return;
@@ -326,6 +367,10 @@ async function start() {
   // Each launch starts paused; reusing a saved browser window ID is never valid.
   await store.set({ monitoring: false, ownedMonitorTab: null,
     ...(!existing.monitorSettings ? { monitorSettings: { intervalSeconds: 60, focusSkus: [], boostUntil: 0 } } : {}) });
+  // Apply before any Apple window exists. The offline self-test never leaves the machine.
+  let savedProxy = { ...DEFAULT_PROXY };
+  try { savedProxy = normalizeProxy(existing.proxySettings); } catch {}
+  await applyProxy(smoke ? { ...savedProxy, mode: 'direct' } : savedProxy);
   protocol.handle('stockapp', async request => {
     try {
       const file = appResource(request.url, root), data = await fsp.readFile(file);
@@ -371,6 +416,7 @@ async function start() {
   tray = new Tray(icon); tray.setToolTip('Apple 香港库存监控');
   tray.setContextMenu(Menu.buildFromTemplate([
     { label: '打开监控面板', click: showMain }, { label: '打开 Apple 官网', click: () => void openApple().catch(error => dialog.showErrorBox('官网窗口', error.message)) },
+    { label: '网络代理设置', click: () => { showMain(); void dashboard.webContents.executeJavaScript("location.hash = 'settings'; document.getElementById('proxy-title')?.scrollIntoView()").catch(() => {}); } },
     { label: '暂停监控', click: () => void runtimeRequest({ type: 'stop-monitor' }).catch(() => {}) },
     { type: 'separator' }, { label: '退出程序', click: () => void quitProgram() }
   ]));
